@@ -2,7 +2,7 @@
 
 function idea_schema()
 {
-  $schema['language'] = array(
+  $schema['languages'] = array(
     'description' => 'The table for languages',
     'fields' => array(
       'language' => array(
@@ -14,52 +14,44 @@ function idea_schema()
   $schema['levels'] = array(
     'description' => 'The table for EQF levels',
     'fields' => array(
-      'id' => array(
-        'type' => 'serial',
-        'not null' => TRUE,
-      ),
-      'description' => array(
-        'type' => 'varchar',
+      'level' => array(
+        'type' => 'text',
         'not null' => TRUE,
       )
     )
   );
 
-  $schema['audience'] = array(
+  $schema['audiences'] = array(
     'description' => 'The table for EQF levels',
+    'fields' => array(
+      'audience' => array(
+        'type' => 'text',
+        'not null' => TRUE,
+      )
+    )
+  );
+
+  $schema['training_material'] = array(
+    'description' => 'Generic table for uploaded content or links',
     'fields' => array(
       'id' => array(
         'type' => 'serial',
         'not null' => TRUE,
       ),
       'description' => array(
-        'type' => 'varchar',
-        'not null' => TRUE,
-      )
-    )
-  );
-
-  $schema['trainings'] = array(
-    'description' => 'The table for EQF levels',
-    'fields' => array(
-      'id' => array(
-        'type' => 'serial',
-        'not null' => TRUE,
-      ),
-      'description' => array(
-        'type' => 'varchar',
+        'type' => 'text',
         'not null' => TRUE,
       ),
       'language' => array(
-        'type' => 'int',
+        'type' => 'text',
         'not null' => TRUE,
       ),
-      'level_id' => array(
-        'type' => 'int',
+      'level' => array(
+        'type' => 'text',
         'not null' => TRUE,
       ),
-      'audience_id' => array(
-        'type' => 'int',
+      'audience' => array(
+        'type' => 'text',
         'not null' => TRUE,
       )
     )
