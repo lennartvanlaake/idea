@@ -1,0 +1,178 @@
+<?php
+/**
+* @file
+* A description of what your module does.
+*/
+
+/**
+ * Implements hook_permission().
+ */
+function idea_permission()
+{
+  return array(
+    'upload material' => array(
+      'title' => t('Upload training material'),
+      'description' => t('Perform uploads of training material.'),
+    ),
+    'steering committee' => array(
+      'title' => t('Steering committee for this site'),
+      'description' => t('Perform steering committee management tasks')
+    )
+  );
+}
+
+function get_available_languages() {
+
+  $results = db_query("SELECT * from {language}");
+  $languages = array();
+  foreach ($results as $result) {
+    array_push($languages, $result -> language);
+  }
+  return $languages;
+
+}
+
+function idea_menu() {
+
+  $items['training/admin/config/add_language'] = array( //this creates a URL that will call this form at "examples/form-example"
+    'title' => 'Add language', //page title
+    'description' => 'Language to add',
+    'page callback' => 'drupal_get_form', //this is the function that will be called when the page is accessed.  for a form, use drupal_get_form
+    'page arguments' => array('add_language_form'), //put the name of the form here
+    'access callback' => TRUE
+  );
+  $items['training/admin/view'] = array(
+    'page callback' => 'admin_page',
+    'access arguments' => array('steering committee'),
+  );
+  return $items;
+
+}
+
+function admin_page()  {
+  $results = db_query("SELECT * from {language}");
+  $page =  "<h1>Upload training material here</h1>";
+  $page .= "<h2> Available languages </h2>";
+  foreach ($results as $result) {
+    $page .= "<li>" . $result -> language . "</li>";
+  }
+  return "$page";
+}
+
+function add_language_form($form, &$form_state) {
+
+  $form['old_language'] = array(
+    '#type' => 'radios',
+    '#title' => 'Delete language',
+    '#options' => get_available_languages(),
+    '#required' => FALSE,
+  );
+
+  $form['new_language'] = array(
+    '#type' => 'textfield',
+    '#title' => 'New language',
+    '#size' => 10,
+    '#maxlength' => 10,
+    '#required' => FALSE,
+  );
+
+  $form['submit_button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Click Here!'),
+  );
+
+  return $form;
+}
+
+function add_language_form_submit($form, &$form_state) {
+
+  db_insert('language') // Table name no longer needs {}
+  ->fields(array(
+    'language' => $form_state['values']['new_language']
+  ))->execute();
+
+}
+
+
+
+//function form_management_form($form, &$form_state)
+//{
+//  $results = db_query("SELECT * from {language}");
+//  $header = array(t('Language'));
+//  $rows = array();
+//  foreach ($results as $result) {
+//    $rows[] = array(
+//      $result->language
+//    );
+//  }
+//  return theme('table', array('header' => $header, 'rows' => $rows));
+//}
+
+//}
+//  $form['price'] = array(
+//    '#type' => 'textfield', //you can find a list of available types in the form api
+//    '#title' => 'What is Your Price?',
+//    '#size' => 10,
+//    '#maxlength' => 10,
+//    '#required' => TRUE, //make this field required
+//  );
+//
+//  $form['submit_button'] = array(
+//    '#type' => 'submit',
+//    '#value' => t('Click Here!'),
+//  );
+//
+//  return $form;
+//}
+
+//function form_example_form_validate($form, &$form_state) {
+//  if (!($form_state['values']['price'] > 0)){
+//    form_set_error('price', t('Price must be a positive number.'));
+//  }
+//}
+//
+//function form_example_form_submit($form, &$form_state) {
+//}
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Implements hook_block_info().
+ */
+//function idea_block_info() {
+//
+//  // This example comes from node.module.
+//  $blocks['corgi'] = array(
+//    'info' => t('corgi')
+//  );
+//  $blocks['zlatan'] = array(
+//    'info' => t('zlatan')
+//  );
+//  return $blocks;
+//
+//}
+//
+//function idea_block_view($delta = '') {
+//
+//  $block = array();
+//  switch ($delta) {
+//    case 'corgi':
+//      $block['subject'] = t('Corgi');
+//      $block['content'] =  "Vettttt";
+//      break;
+//    case 'zlatan':
+//      $block['subject'] = t('Zlatan');
+//      $block['content'] =  "DIKKKK";
+//      break;
+//  }
+//  return $block;
+//}
+

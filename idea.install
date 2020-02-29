@@ -1,0 +1,119 @@
+<?php
+
+function idea_schema()
+{
+  $schema['language'] = array(
+    'description' => 'The table for languages',
+    'fields' => array(
+      'language' => array(
+        'type' => 'text',
+        'not null' => TRUE,
+      )
+    )
+  );
+  $schema['levels'] = array(
+    'description' => 'The table for EQF levels',
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+      ),
+      'description' => array(
+        'type' => 'varchar',
+        'not null' => TRUE,
+      )
+    )
+  );
+
+  $schema['audience'] = array(
+    'description' => 'The table for EQF levels',
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+      ),
+      'description' => array(
+        'type' => 'varchar',
+        'not null' => TRUE,
+      )
+    )
+  );
+
+  $schema['trainings'] = array(
+    'description' => 'The table for EQF levels',
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+      ),
+      'description' => array(
+        'type' => 'varchar',
+        'not null' => TRUE,
+      ),
+      'language' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+      'level_id' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+      'audience_id' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+      )
+    )
+  );
+
+  return $schema;
+}
+
+
+//////// -- LEVEL 1
+//  //// -- Tables and References
+//
+//  // Creating tables
+//  Table languages {
+//    language varchar pk
+//  }
+//
+//  Table levels {
+//    id int pk
+//    description varchar
+//  }
+//
+//  Table audience {
+//    id int pk
+//    description varchar
+//  }
+//
+//  table trainings {
+//    id int pk
+//    level_id int
+//    audience_id int
+//    language varchar
+//  }
+//
+//  table content {
+//    id int pk
+//    link varchar
+//    description varchar
+//    link_type varchar
+//    content_type varchar
+//  }
+//
+//  table content_types {
+//    type varchar
+//  }
+//
+//
+//  table link_types {
+//    type varchar
+//  }
+//
+//
+//
+//
+//
+//
+//  Ref: "trainings"."level_id" < "levels"."id"
