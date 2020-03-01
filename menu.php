@@ -2,11 +2,25 @@
 
 function idea_menu() {
 
-  $items['training/admin/config'] = array( //this creates a URL that will call this form at "examples/form-example"
-    'title' => 'Global training configuration', //page title
+  /**
+   * Configuration page for the admin
+   */
+  $items['training/admin/config'] = array(
+    'title' => 'Global training configuration',
     'description' => 'Adjust the possible values for all training uploads',
-    'page callback' => 'drupal_get_form', //this is the function that will be called when the page is accessed.  for a form, use drupal_get_form
-    'page arguments' => array('form_config_form'), //put the name of the form here
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('form_config_form'),
+    'access callback' => TRUE
+  );
+
+  /**
+   * Upload links to training material
+   */
+  $items['training/upload/links'] = array(
+    'title' => 'Upload links',
+    'description' => 'Form to upload links to training material',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('form_training_link_form'),
     'access callback' => TRUE
   );
   return $items;

@@ -34,8 +34,16 @@ function idea_schema()
   $schema['training_material'] = array(
     'description' => 'Generic table for uploaded content or links',
     'fields' => array(
-      'id' => array(
-        'type' => 'serial',
+      'title' => array(
+        'type' => 'text',
+        'not null' => TRUE,
+      ),
+      'category' => array(
+          'type' => 'text',
+        'not null' => TRUE,
+      ),
+      'content_type' => array(
+        'type' => 'text',
         'not null' => TRUE,
       ),
       'description' => array(
@@ -51,6 +59,24 @@ function idea_schema()
         'not null' => TRUE,
       ),
       'audience' => array(
+        'type' => 'text',
+        'not null' => TRUE,
+      )
+    )
+  );
+
+  $schema['training_links'] = array(
+    'description' => 'Table for links to training material',
+    'fields' => array(
+      'title' => array(
+        'type' => 'text',
+        'not null' => TRUE,
+      ),
+      'url' => array(
+        'type' => 'text',
+        'not null' => TRUE,
+      ),
+      'link_type' => array(
         'type' => 'text',
         'not null' => TRUE,
       )

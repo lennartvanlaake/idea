@@ -33,6 +33,14 @@ function get_available_audiences() {
 
 }
 
+function get_possible_categories() {
+  return array("Training", "Debate", "Pedagogy");
+}
+
+function get_possible_link_types() {
+  return array("Video", "Other");
+}
+
 function as_options_array($input_array) {
 
   $output = array();
@@ -54,4 +62,8 @@ function get_form_value($form, $string) {
 function form_has_value($form, $string) {
   $values = $form['values'];
   return array_key_exists($string,  $values) &&  $values[$string] != "";
+}
+
+function get_link_value() {
+  return "LINK";
 }
