@@ -3,9 +3,9 @@
 function form_config_form($form, &$form_state) {
 
   $form['delete_language'] = array(
-    '#type' => 'select',
+    '#type' => 'radios',
     '#title' => 'Delete language',
-    '#options' => get_available_languages(),
+    '#options' => as_options_array(get_available_languages()),
     '#required' => FALSE,
   );
 
@@ -20,7 +20,7 @@ function form_config_form($form, &$form_state) {
   $form['delete_level'] = array(
     '#type' => 'radios',
     '#title' => 'Delete level',
-    '#options' => get_available_levels(),
+    '#options' => as_options_array(get_available_levels()),
     '#required' => FALSE,
   );
 
@@ -35,7 +35,7 @@ function form_config_form($form, &$form_state) {
   $form['delete_audience'] = array(
     '#type' => 'radios',
     '#title' => 'Delete audience',
-    '#options' => get_available_audiences(),
+    '#options' => as_options_array(get_available_audiences()),
     '#required' => FALSE,
   );
 
@@ -68,8 +68,15 @@ function form_config_form_submit($form, &$form_state) {
   if (!is_null($language_to_insert)) {
     db_insert('languages')
     ->fields(array(
-      'language' => $form_state['values']['new_language']
+      'language' => $language_to_insert
     ))->execute();
+  }
+
+  $audience_to_delete = get_form_value($form_state, "delete_audience");
+  if (!is_null($audience_to_delete)) {
+    db_delete('audiences')
+      -> condition("audience", $audience_to_delete)
+      -> execute();
   }
 
   $audience_to_insert = get_form_value($form_state, "new_audience");
@@ -78,6 +85,13 @@ function form_config_form_submit($form, &$form_state) {
       ->fields(array(
         'audience' => get_form_value($form_state, "new_audience")
       ))->execute();
+  }
+
+  $level_to_delete = get_form_value($form_state, "delete_level");
+  if (!is_null($level_to_delete)) {
+    db_delete('levels')
+      -> condition("level", $level_to_delete)
+      -> execute();
   }
 
   $level_to_insert = get_form_value($form_state, "new_level");

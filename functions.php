@@ -33,6 +33,16 @@ function get_available_audiences() {
 
 }
 
+function as_options_array($input_array) {
+
+  $output = array();
+  foreach ($input_array as $entry) {
+    array_push($output, t($entry));
+  }
+  return drupal_map_assoc($output);
+
+}
+
 function get_form_value($form, $string) {
   if (form_has_value($form, $string)) {
     return $form['values'][$string];
@@ -41,12 +51,7 @@ function get_form_value($form, $string) {
   }
 }
 
-
 function form_has_value($form, $string) {
-  return TRUE;
-}
-
-
-function form_has_value2($form, $string) {
-  return key_exists($string, $form) && $form[$string] != "";
+  $values = $form['values'];
+  return array_key_exists($string,  $values) &&  $values[$string] != "";
 }
