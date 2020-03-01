@@ -9,7 +9,7 @@ include 'admin.php';
 include 'permissions.php';
 include 'menu.php';
 include 'upload.php';
-
+include 'search.php';
 
 
 
