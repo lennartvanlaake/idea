@@ -23,6 +23,17 @@ function idea_menu() {
     'page arguments' => array('form_training_link_form'),
     'access callback' => TRUE
   );
+
+  /**
+   * Upload links to training material
+   */
+  $items['training/search'] = array(
+    'title' => 'Search',
+    'description' => 'Search',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('idea_search_form'),
+    'access callback' => TRUE
+  );
   return $items;
 
 }

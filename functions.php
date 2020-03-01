@@ -41,6 +41,10 @@ function get_possible_link_types() {
   return array("Video", "Other");
 }
 
+function get_all_training_links() {
+  return db_query("SELECT * FROM training_material} JOIN {training_links} ON training_material.title = training_links.title");
+}
+
 function as_options_array($input_array) {
 
   $output = array();
@@ -60,6 +64,9 @@ function get_form_value($form, $string) {
 }
 
 function form_has_value($form, $string) {
+  if (!array_key_exists('values', $form)) {
+    return FALSE;
+  }
   $values = $form['values'];
   return array_key_exists($string,  $values) &&  $values[$string] != "";
 }
