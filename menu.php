@@ -68,9 +68,9 @@ function idea_menu() {
     'title' => 'Trainer Database',
     'description' => 'trainerdb landing page',
     'page callback' => 'trainers_homepage',
-    'file' => 'idea.inc',
     'type' => MENU_NORMAL_ITEM,
     'access arguments' => array('access content'),
+    'file' => 'trainers.php'
   );
 
   return $items;

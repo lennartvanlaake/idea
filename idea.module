@@ -10,6 +10,8 @@ include 'permissions.php';
 include 'menu.php';
 include 'upload.php';
 include 'search.php';
+include 'addTrainer.php';
+include 'trainer.php';
 
 
 
