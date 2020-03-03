@@ -15,6 +15,10 @@ function idea_permission()
     'steering committee' => array(
       'title' => t('Steering committee for this site'),
       'description' => t('Perform steering committee management tasks')
-    )
+    ),
+    'insert_trainer' => array(
+      'title' => t('insert trainer'),
+      'description' => t('add trainer to database'),
+    ),
   );
 }

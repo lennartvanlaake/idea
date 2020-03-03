@@ -74,3 +74,7 @@ function form_has_value($form, $string) {
 function get_link_value() {
   return "LINK";
 }
+
+function trainers_homepage() {
+  return "<strong>This is the trainerdb homepage<strong>";
+}

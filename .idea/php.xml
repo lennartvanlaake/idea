@@ -5,6 +5,9 @@
       <path value="$PROJECT_DIR$/../../../../includes" />
       <path value="$PROJECT_DIR$/../../../../modules" />
       <path value="$PROJECT_DIR$/../contrib" />
+      <path value="$USER_HOME$/Desktop/drupal-7.69/includes" />
+      <path value="$USER_HOME$/Desktop/drupal-7.69/modules" />
+      <path value="$USER_HOME$/Desktop/drupal-7.69/sites/all/modules" />
     </include_path>
   </component>
 </project>

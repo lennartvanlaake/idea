@@ -83,6 +83,112 @@ function idea_schema()
     )
   );
 
+  $schema['trainer_training'] = array(
+    'description' => 'trainers and trainings given table',
+    'fields' => array(
+      'training_id' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+      'trainer_id' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+    ),
+  );
+
+  $schema['trainer'] = array(
+    'description' => 'trainer table',
+    'fields' => array(
+      'trainer_id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+      ),
+      'name' => array(
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'age' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'country' => array(
+        'type' => 'varchar',
+        'length' => 30,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'city' => array(
+        'type' => 'varchar',
+        'length' => 30,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'bio' => array(
+        'type' => 'varchar',
+        'length' => 5000,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'experience' => array(
+        'type' => 'varchar',
+        'length' => 5000,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+    ),
+    'primary key' => array('trainer_id'),
+  );
+
+  $schema['training'] = array(
+    'description' => 'training table',
+    'fields' => array(
+      'training_id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+      ),
+      'title' => array(
+        'type' => 'varchar',
+        'length' => 100,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'country' => array(
+        'type' => 'varchar',
+        'length' => 30,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'city' => array(
+        'type' => 'varchar',
+        'length' => 30,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'description' => array(
+        'type' => 'varchar',
+        'length' => 5000,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'contactinfo' => array(
+        'type' => 'varchar',
+        'length' => 12,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'date' => array(
+        'type' => 'datetime',
+        'mysql_type' => 'DATETIME',
+        'not null' => TRUE, ),
+    ),
+    'primary key' => array('training_id'),
+  );
+
   return $schema;
 }
 
