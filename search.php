@@ -3,6 +3,8 @@
 
 function idea_search_form($form, &$form_state) {
 
+  $choice_type = "radios";
+
   $form['query'] = array(
     '#type' => 'textfield',
     '#title' => 'Search description and title',
@@ -12,30 +14,37 @@ function idea_search_form($form, &$form_state) {
   );
 
   $form['language'] = array(
-    '#type' => 'select',
+    '#type' => $choice_type,
     '#title' => 'Select a language',
     '#options' => as_options_array(get_available_languages()),
     '#required' => FALSE,
   );
 
   $form['level'] = array(
-    '#type' => 'select',
+    '#type' => $choice_type,
     '#title' => 'Select a level',
     '#options' => as_options_array(get_available_levels()),
     '#required' => FALSE,
   );
 
   $form['audience'] = array(
-    '#type' => 'select',
+    '#type' => $choice_type,
     '#title' => 'Select a audience',
     '#options' => as_options_array(get_available_audiences()),
     '#required' => FALSE,
   );
 
   $form['category'] = array(
-    '#type' => 'select',
+    '#type' => $choice_type,
     '#title' => 'Select a category',
     '#options' => as_options_array(get_possible_categories()),
+    '#required' => FALSE,
+  );
+
+  $form['content_type'] = array(
+    '#type' => $choice_type,
+    '#title' => 'Select the type of content you want',
+    '#options' => as_options_array(get_possible_content_types()),
     '#required' => FALSE,
   );
 
@@ -63,13 +72,74 @@ function idea_search_form_validate($form, &$form_state) {
 
 function get_query_result($form_state) {
 
-  $content = "";
-  $query = get_form_value($form_state, "query");
-  if (is_null($query)) {
-    return $content;
+  if (!array_key_exists("values", $form_state)) {
+    return "";
   }
-  $content .= "<br><h1>Results</h1><hr>";
-  $content .= "<p>". get_form_value($form_state, "query") ."</p>";
+  $content = "<br><h1>Results</h1><hr>";
+  $type = get_form_value($form_state, "content_type");
+  if (is_null($type) || $type == get_link_value() || $type == get_any_choice_value()) {
+    $links = get_all_training_links();
+    $filtered_links = apply_all_filters($links, $form_state);
+    $content .= generate_link_result_html($links);
+//    $content = add_link_results_to_query_result($content, $filtered_links);
+  }
   return $content;
+
+}
+
+function apply_all_filters($results, $form_state) {
+  $filter_1 = apply_filter($results, $form_state, "language");
+  $filter_2 = apply_filter($filter_1, $form_state, "level");
+  $filter_3 = apply_filter($filter_2, $form_state, "audience");
+  $filter_4 = apply_filter($filter_3, $form_state, "category");
+//  $results = apply_query($results, $form_state);
+  return $filter_4;
+}
+
+function apply_query($results, $form_state) {
+  $query_value = get_form_value($form_state, "query");
+  if (is_null($query_value)) {
+    return $results;
+  }
+  $filtered_results = array();
+  foreach ($results as $result) {
+    $title = $results -> title;
+    $description = $results -> description;
+    if (contains_substring($title, $query_value) || contains_substring($description, $query_value)) {
+      $filtered_results[] = $result;
+    }
+  }
+  return $filtered_results;
+}
+
+function apply_filter($results, $form_state, $property) {
+  $filter_value = get_form_value($form_state, $property);
+  if (is_null($filter_value) || $filter_value == get_any_choice_value()) {
+    return $results;
+  }
+  $filtered_results = array();
+  foreach ($results as &$entry) {
+     if (strcasecmp($entry -> $property, $filter_value) == 0) {
+        $filtered_results[] = $entry;
+     }
+  }
+  return $filtered_results;
+}
+
+function generate_link_result_html($link_results) {
+  $output = "";
+  foreach ($link_results as $link) {
+    $output .= "<h2> title: " . $link -> title . "</h2>";
+    $output .= "<ul>";
+    $output .= "<li> description: " . $link -> description . "</li>";
+    $output .= "<li> url: <a href =" . $link -> description . ">".  $link -> description  ."</a></li>";
+    $output .= "<li> language: " . $link -> language . "</li>";
+    $output .= "<li> level: " . $link -> level . "</li>";
+    $output .= "<li> audience: " . $link -> level . "</li>";
+    $output .= "</ul></br>";
+
+  }
+
+  return $output;
 
 }
