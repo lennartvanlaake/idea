@@ -59,11 +59,12 @@ function get_all_training_links() {
     -> fetchAll();
 }
 
-function as_options_array($input_array) {
+function as_options_array($default_value, $input_array) {
 
   $output = array();
+  $output[] = t($default_value);
   foreach ($input_array as $entry) {
-    array_push($output, t($entry));
+    $output[] = t($entry);
   }
   return drupal_map_assoc($output);
 
@@ -78,7 +79,11 @@ function get_form_value($form, $string) {
 }
 
 function get_any_choice_value() {
-  return "Any/Other";
+  return "Any";
+}
+
+function get_other_choice_value() {
+  return "Other";
 }
 
 function form_has_value($form, $string) {

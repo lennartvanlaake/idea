@@ -3,7 +3,7 @@
 
 function idea_search_form($form, &$form_state) {
 
-  $choice_type = "radios";
+  $choice_type = "select";
 
   $form['query'] = array(
     '#type' => 'textfield',
@@ -16,35 +16,35 @@ function idea_search_form($form, &$form_state) {
   $form['language'] = array(
     '#type' => $choice_type,
     '#title' => 'Select a language',
-    '#options' => as_options_array(get_available_languages()),
+    '#options' => as_options_array(get_any_choice_value(), get_available_languages()),
     '#required' => FALSE,
   );
 
   $form['level'] = array(
     '#type' => $choice_type,
     '#title' => 'Select a level',
-    '#options' => as_options_array(get_available_levels()),
+    '#options' => as_options_array(get_any_choice_value(), get_available_levels()),
     '#required' => FALSE,
   );
 
   $form['audience'] = array(
     '#type' => $choice_type,
     '#title' => 'Select a audience',
-    '#options' => as_options_array(get_available_audiences()),
+    '#options' => as_options_array(get_any_choice_value(), get_available_audiences()),
     '#required' => FALSE,
   );
 
   $form['category'] = array(
     '#type' => $choice_type,
     '#title' => 'Select a category',
-    '#options' => as_options_array(get_possible_categories()),
+    '#options' => as_options_array(get_any_choice_value(), get_possible_categories()),
     '#required' => FALSE,
   );
 
   $form['content_type'] = array(
     '#type' => $choice_type,
     '#title' => 'Select the type of content you want',
-    '#options' => as_options_array(get_possible_content_types()),
+    '#options' => as_options_array(get_any_choice_value(), get_possible_content_types()),
     '#required' => FALSE,
   );
 
@@ -80,8 +80,7 @@ function get_query_result($form_state) {
   if (is_null($type) || $type == get_link_value() || $type == get_any_choice_value()) {
     $links = get_all_training_links();
     $filtered_links = apply_all_filters($links, $form_state);
-    $content .= generate_link_result_html($links);
-//    $content = add_link_results_to_query_result($content, $filtered_links);
+    $content .= generate_link_result_html($filtered_links);
   }
   return $content;
 
@@ -92,8 +91,7 @@ function apply_all_filters($results, $form_state) {
   $filter_2 = apply_filter($filter_1, $form_state, "level");
   $filter_3 = apply_filter($filter_2, $form_state, "audience");
   $filter_4 = apply_filter($filter_3, $form_state, "category");
-//  $results = apply_query($results, $form_state);
-  return $filter_4;
+  return apply_query($filter_4, $form_state);
 }
 
 function apply_query($results, $form_state) {
@@ -103,8 +101,8 @@ function apply_query($results, $form_state) {
   }
   $filtered_results = array();
   foreach ($results as $result) {
-    $title = $results -> title;
-    $description = $results -> description;
+    $title = $result -> title;
+    $description = $result -> description;
     if (contains_substring($title, $query_value) || contains_substring($description, $query_value)) {
       $filtered_results[] = $result;
     }
@@ -132,7 +130,7 @@ function generate_link_result_html($link_results) {
     $output .= "<h2> title: " . $link -> title . "</h2>";
     $output .= "<ul>";
     $output .= "<li> description: " . $link -> description . "</li>";
-    $output .= "<li> url: <a href =" . $link -> description . ">".  $link -> description  ."</a></li>";
+    $output .= "<li> url: <a href =" . $link -> url . ">".  $link -> url  ."</a></li>";
     $output .= "<li> language: " . $link -> language . "</li>";
     $output .= "<li> level: " . $link -> level . "</li>";
     $output .= "<li> audience: " . $link -> level . "</li>";

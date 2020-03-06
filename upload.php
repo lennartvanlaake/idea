@@ -5,35 +5,35 @@ function form_training_link_form($form, &$form_state) {
   $form['language'] = array(
     '#type' => 'select',
     '#title' => 'Select a language',
-    '#options' => as_options_array(get_available_languages()),
+    '#options' => as_options_array(get_other_choice_value(), get_available_languages()),
     '#required' => TRUE,
   );
 
   $form['level'] = array(
     '#type' => 'select',
     '#title' => 'Select a level',
-    '#options' => as_options_array(get_available_levels()),
+    '#options' => as_options_array(get_other_choice_value(), get_available_levels()),
     '#required' => TRUE,
   );
 
   $form['audience'] = array(
     '#type' => 'select',
     '#title' => 'Select a audience',
-    '#options' => as_options_array(get_available_audiences()),
+    '#options' => as_options_array(get_other_choice_value(), get_available_audiences()),
     '#required' => TRUE,
   );
 
   $form['category'] = array(
     '#type' => 'select',
     '#title' => 'Select a category',
-    '#options' => as_options_array(get_possible_categories()),
+    '#options' => as_options_array(get_other_choice_value(), get_possible_categories()),
     '#required' => TRUE,
   );
 
   $form['link_type'] = array(
     '#type' => 'select',
     '#title' => 'Select the type of link this is',
-    '#options' => as_options_array(get_possible_link_types()),
+    '#options' => as_options_array(get_other_choice_value(), get_possible_link_types()),
     '#required' => TRUE,
   );
 
