@@ -38,6 +38,19 @@ function idea_menu() {
   );
 
   /**
+   * Upload files with training material
+   */
+  $items['project/training/upload/files'] = array(
+    'title' => 'Upload files',
+    'description' => 'Form to upload files with training material',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('form_training_file_form'),
+    'access arguments' => array('access content'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+
+  /**
    * search training database
    */
   $items['project/training/search'] = array(
@@ -60,6 +73,19 @@ function idea_menu() {
     'type' => MENU_NORMAL_ITEM,
     'access arguments' => array('access content'),
   );
+
+  /**
+   * Add trainer
+   */
+  $items['project/trainers/search'] = array(
+    'title' => 'Search trainer',
+    'description' => 'Search a trainer',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('trainer_search_form'),
+    'type' => MENU_NORMAL_ITEM,
+    'access arguments' => array('access content'),
+  );
+
 
   /**
    * search trainer database

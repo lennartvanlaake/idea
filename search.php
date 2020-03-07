@@ -80,7 +80,12 @@ function get_query_result($form_state) {
   if (is_null($type) || $type == get_link_value() || $type == get_any_choice_value()) {
     $links = get_all_training_links();
     $filtered_links = apply_all_filters($links, $form_state);
-    $content .= generate_link_result_html($filtered_links);
+    $content .= generate_result_html($filtered_links);
+  }
+  if (is_null($type) || $type == get_upload_value() || $type == get_any_choice_value()) {
+    $uploads = get_all_training_uploads();
+    $filtered_uploads = apply_all_filters($uploads, $form_state);
+    $content .= generate_result_html($filtered_uploads);
   }
   return $content;
 
@@ -124,7 +129,7 @@ function apply_filter($results, $form_state, $property) {
   return $filtered_results;
 }
 
-function generate_link_result_html($link_results) {
+function generate_result_html($link_results) {
   $output = "";
   foreach ($link_results as $link) {
     $output .= "<h2> title: " . $link -> title . "</h2>";

@@ -75,13 +75,25 @@ function idea_schema()
       'url' => array(
         'type' => 'text',
         'not null' => TRUE,
+      )
+    )
+  );
+
+
+  $schema['training_uploads'] = array(
+    'description' => 'Table for links to training material',
+    'fields' => array(
+      'title' => array(
+        'type' => 'text',
+        'not null' => TRUE,
       ),
-      'link_type' => array(
+      'url' => array(
         'type' => 'text',
         'not null' => TRUE,
       )
     )
   );
+
 
   $schema['trainer_training'] = array(
     'description' => 'trainers and trainings given table',
@@ -182,8 +194,8 @@ function idea_schema()
         'default' => '',
       ),
       'date' => array(
-        'type' => 'datetime',
-        'mysql_type' => 'DATETIME',
+        'type' => 'text',
+        //'mysql_type' => 'varchar',
         'not null' => TRUE, ),
     ),
     'primary key' => array('training_id'),
@@ -193,51 +205,3 @@ function idea_schema()
 }
 
 
-//////// -- LEVEL 1
-//  //// -- Tables and References
-//
-//  // Creating tables
-//  Table languages {
-//    language varchar pk
-//  }
-//
-//  Table levels {
-//    id int pk
-//    description varchar
-//  }
-//
-//  Table audience {
-//    id int pk
-//    description varchar
-//  }
-//
-//  table trainings {
-//    id int pk
-//    level_id int
-//    audience_id int
-//    language varchar
-//  }
-//
-//  table content {
-//    id int pk
-//    link varchar
-//    description varchar
-//    link_type varchar
-//    content_type varchar
-//  }
-//
-//  table content_types {
-//    type varchar
-//  }
-//
-//
-//  table link_types {
-//    type varchar
-//  }
-//
-//
-//
-//
-//
-//
-//  Ref: "trainings"."level_id" < "levels"."id"

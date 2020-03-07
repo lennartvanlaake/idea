@@ -33,6 +33,18 @@ function get_available_audiences() {
 
 }
 
+function get_available_countries() {
+
+  $results = db_query("SELECT DISTINCT country from {trainer}");
+  $output = array(get_any_choice_value());
+  foreach ($results as $result) {
+    array_push($output, $result -> country);
+  }
+  return $output;
+
+}
+
+
 function get_possible_categories() {
   return array(get_any_choice_value(), "Training", "Debate", "Pedagogy");
 }
@@ -55,9 +67,21 @@ function get_upload_value() {
 
 
 function get_all_training_links() {
-  return db_query("SELECT * FROM training_material} JOIN {training_links} ON training_material.title = training_links.title")
+  return db_query("SELECT * FROM {training_material} JOIN {training_links} ON training_material.title = training_links.title")
     -> fetchAll();
 }
+
+function get_all_training_uploads() {
+  return db_query("SELECT * FROM {training_material} JOIN {training_uploads} ON training_material.title = training_uploads.title")
+    -> fetchAll();
+}
+
+
+function get_all_trainers() {
+  return db_query("SELECT * FROM {trainer}")
+    -> fetchAll();
+}
+
 
 function as_options_array($default_value, $input_array) {
 
