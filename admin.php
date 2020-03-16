@@ -5,7 +5,7 @@ function form_config_form($form, &$form_state) {
   $form['delete_language'] = array(
     '#type' => 'radios',
     '#title' => 'Delete language',
-    '#options' => as_options_array(get_available_languages()),
+    '#options' => as_options_array(null, get_available_languages()),
     '#required' => FALSE,
   );
 
@@ -20,7 +20,7 @@ function form_config_form($form, &$form_state) {
   $form['delete_level'] = array(
     '#type' => 'radios',
     '#title' => 'Delete level',
-    '#options' => as_options_array(get_available_levels()),
+    '#options' => as_options_array(null, get_available_levels()),
     '#required' => FALSE,
   );
 
@@ -35,7 +35,7 @@ function form_config_form($form, &$form_state) {
   $form['delete_audience'] = array(
     '#type' => 'radios',
     '#title' => 'Delete audience',
-    '#options' => as_options_array(get_available_audiences()),
+    '#options' => as_options_array(null, get_available_audiences()),
     '#required' => FALSE,
   );
 

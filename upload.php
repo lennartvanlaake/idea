@@ -136,13 +136,6 @@ function form_training_link_form($form, &$form_state) {
     '#required' => TRUE,
   );
 
-  $form['link_type'] = array(
-    '#type' => 'select',
-    '#title' => 'Select the type of link this is',
-    '#options' => as_options_array(get_other_choice_value(), get_possible_link_types()),
-    '#required' => TRUE,
-  );
-
   $form['title'] = array(
     '#type' => 'textfield',
     '#title' => 'Title of the link',
@@ -181,7 +174,6 @@ function form_training_link_form_submit($form, &$form_state) {
   $level = get_form_value($form_state, "level");
   $audience = get_form_value($form_state, "audience");
   $category = get_form_value($form_state, "category");
-  $link_type = get_form_value($form_state, "link_type");
   $title = get_form_value($form_state, "title");
   $url = get_form_value($form_state, "url");
   $description = get_form_value($form_state, "description");
@@ -200,7 +192,6 @@ function form_training_link_form_submit($form, &$form_state) {
   db_insert('training_links')
     ->fields(array(
       'title' => $title,
-      'link_type' => $link_type,
       'url' => $url
     ))->execute();
 

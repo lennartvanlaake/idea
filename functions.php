@@ -3,7 +3,7 @@
 function get_available_languages() {
 
   $results = db_query("SELECT * from {languages}");
-  $languages = array(get_any_choice_value());
+  $languages = array();
   foreach ($results as $result) {
     array_push($languages, $result -> language);
   }
@@ -14,7 +14,7 @@ function get_available_languages() {
 function get_available_levels() {
 
   $results = db_query("SELECT * from {levels}");
-  $output = array(get_any_choice_value());
+  $output = array();
   foreach ($results as $result) {
     array_push($output, $result -> level);
   }
@@ -25,7 +25,7 @@ function get_available_levels() {
 function get_available_audiences() {
 
   $results = db_query("SELECT * from {audiences}");
-  $output = array(get_any_choice_value());
+  $output = array();
   foreach ($results as $result) {
     array_push($output, $result -> audience);
   }
@@ -36,7 +36,7 @@ function get_available_audiences() {
 function get_available_countries() {
 
   $results = db_query("SELECT DISTINCT country from {trainer}");
-  $output = array(get_any_choice_value());
+  $output = array();
   foreach ($results as $result) {
     array_push($output, $result -> country);
   }
@@ -46,15 +46,15 @@ function get_available_countries() {
 
 
 function get_possible_categories() {
-  return array(get_any_choice_value(), "Training", "Debate", "Pedagogy");
+  return array("Training", "Debate", "Pedagogy");
 }
 
 function get_possible_link_types() {
-  return array(get_any_choice_value(), "Video", "Other");
+  return array("Video", "Other");
 }
 
 function get_possible_content_types() {
-  return array(get_any_choice_value(), get_link_value(), get_upload_value());
+  return array(get_link_value(), get_upload_value());
 }
 
 function get_link_value() {
@@ -86,7 +86,9 @@ function get_all_trainers() {
 function as_options_array($default_value, $input_array) {
 
   $output = array();
-  $output[] = t($default_value);
+  if (!is_null($default_value)) {
+    $output[] = t($default_value);
+  }
   foreach ($input_array as $entry) {
     $output[] = t($entry);
   }
